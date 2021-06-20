@@ -1,11 +1,11 @@
-# airpreview
+# airPreview
 
 Tests for the `/bank` endpoint stored in `integration` folder
 
 ## How to run
 0. You nee to have node v12.8.0 or higher (12.8.0 was used for development)
 1. Open the terminal from the `integration` folder and run `npm i`
-2. in order to run tests execute the following command: `npm run test`
+2. In order to run tests, execute the following command: `npm run test`
 
 
 ## Notes
@@ -16,7 +16,7 @@ Tests for the `/bank` endpoint stored in `integration` folder
     * tests checking data formats
     * etc.
 
-### Further develpoment:
+### Further development:
 1. The solution is really simple. In the future it can be transferred to a more mature test 
 framework with an advanced data generation, assertion and reporting capabilities depends on 
 business needs and priorities. 

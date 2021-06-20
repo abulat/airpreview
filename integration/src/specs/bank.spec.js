@@ -2,7 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
 
-const generate = require('../utils/data-utils');
+const generate = require('../data/generator');
 const config = require('../config');
 
 chai.use(chaiHttp);

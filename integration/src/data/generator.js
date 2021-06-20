@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const faker = require('faker');
-const paymentMethod = require('../data/payment-method.json');
-const bankCountry = require('../data/bank-country-code.json');
+const paymentMethod = require('./fixtures/payment-method.json');
+const bankCountry = require('./fixtures/bank-country-code.json');
 
 module.exports = {
     randomAlphanumericString(length = 10) {
