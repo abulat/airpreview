@@ -1,0 +1,228 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "google"
+  ],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "document": false
+  },
+  "parserOptions": {
+    "ecmaVersion": 10,
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "rules": {
+    "indent": 0,
+    "no-console": 0,
+    "array-bracket-spacing": [
+      2,
+      "never"
+    ],
+    "arrow-spacing": 2,
+    "computed-property-spacing": [
+      2,
+      "never"
+    ],
+    "complexity": [
+      2,
+      8
+    ],
+    "no-eval": 2,
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
+    "max-len": [
+      2,
+      {
+        "code": 200,
+        "tabWidth": 4,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true
+      }
+    ],
+    "require-jsdoc": 0,
+    "arrow-parens": [
+      2,
+      "as-needed"
+    ],
+    "comma-dangle": [
+      2,
+      "never"
+    ],
+    "new-cap": [
+      2,
+      {
+        "capIsNew": true
+      }
+    ],
+    "block-scoped-var": 2,
+    "camelcase": 2,
+    "curly": [
+      2,
+      "all"
+    ],
+    "dot-notation": 2,
+    "guard-for-in": 2,
+    "no-bitwise": 2,
+    "no-caller": 2,
+    "no-cond-assign": [
+      2,
+      "except-parens"
+    ],
+    "no-debugger": 2,
+    "no-empty": 2,
+    "no-extend-native": 2,
+    "no-irregular-whitespace": 2,
+    "no-iterator": 2,
+    "no-loop-func": 2,
+    "no-multi-str": 2,
+    "no-new": 2,
+    "no-plusplus": 2,
+    "no-proto": 2,
+    "no-script-url": 2,
+    "no-sequences": 2,
+    "no-shadow": 0,
+    "no-undef": 2,
+    "no-unused-vars": 2,
+    "no-with": 2,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "semi": [
+      2,
+      "always"
+    ],
+    "strict": [
+      2,
+      "safe"
+    ],
+    "valid-typeof": 2,
+    "wrap-iife": [
+      2,
+      "inside"
+    ],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "valid-jsdoc": [
+      2,
+      {
+        "requireParamDescription": false,
+        "requireReturnDescription": false,
+        "requireReturn": false,
+        "requireReturnType": true,
+        "prefer": {
+          "return": "returns"
+        },
+        "preferType": {
+          "String": "string",
+          "Boolean": "boolean",
+          "Number": "number",
+          "object": "Object",
+          "array": "Array"
+        }
+      }
+    ],
+    "quote-props": [
+      2,
+      "as-needed"
+    ],
+    "prefer-const": 2,
+    "prefer-rest-params": 2,
+    "prefer-spread": 2,
+    "no-new-symbol": 2,
+    "generator-star-spacing": [
+      2,
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "prefer-template": 2,
+    "no-useless-concat": 2,
+    "rest-spread-spacing": [
+      2,
+      "never"
+    ],
+    "template-curly-spacing": [
+      2,
+      "never"
+    ],
+    "no-var": 2,
+    "space-infix-ops": 2,
+    "space-in-parens": [
+      2,
+      "never"
+    ],
+    "semi-style": [
+      2,
+      "last"
+    ],
+    "array-callback-return": 2,
+    "prefer-destructuring": 0,
+    "one-var": 0,
+    "lines-between-class-members": [
+      2,
+      "always"
+    ],
+    "padding-line-between-statements": [
+      2,
+      {
+        "blankLine": "always",
+        "prev": [
+          "const",
+          "let"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": [
+          "const",
+          "let"
+        ],
+        "next": [
+          "const",
+          "let"
+        ]
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": [
+          "block-like",
+          "return"
+        ]
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "block-like"
+        ],
+        "next": "*"
+      }
+    ],
+    "no-multiple-empty-lines": [
+      2,
+      {
+        "max": 1
+      }
+    ],
+    "spaced-comment": [
+      2,
+      "always"
+    ]
+  }
+}
