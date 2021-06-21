@@ -14,11 +14,19 @@ Tests for the `/bank` endpoint stored in `integration` folder
 
 ## Notes
 ### Test Coverage 
-2. Tests do not cover all existing data variants, but try to cover all received requirement. 
+2. Tests do not cover all existing data variants but cover received requirements. 
 3. Most implemented tests can easily be moved down to the unit test level:
     * tests checking size of fields
     * tests checking data formats
     * etc.
+
+### Discovered issues
+1. Strict schema validation is missing. Requests with extra payload properties should be rejected.
+2. /bank endpoint allows to save data without providing 'aba' property for US country.
+3. Wrong validation of the account_number property for CN country.
+
+NOTE 1: regression tests created (after the bug fixes all tests will have to become automagically green)
+NOTE 2: the following improvement can be useful: do not break the payload validation on the first error and provide an array with full whole list of existing issues 
 
 ### Further development:
 1. The solution is really simple. In the future it can be transferred to a more mature test 
