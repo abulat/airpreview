@@ -26,7 +26,7 @@ Tests for the `/bank` endpoint stored in `integration` folder
 3. Wrong validation of the account_number property for CN country.
 
 NOTE 1: regression tests created (after the bug fixes all tests will have to become automagically green)
-NOTE 2: the following improvement can be useful: do not break the payload validation on the first error and provide an array with full whole list of existing issues 
+NOTE 2: the following improvement can be useful: do not break the payload validation on the first error and provide an array with full list of existing issues 
 
 ### Further development:
 1. The solution is really simple. In the future it can be transferred to a more mature test 
