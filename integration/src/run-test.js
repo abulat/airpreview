@@ -25,6 +25,8 @@ fs.readdirSync(testDir)
     .forEach(function(file) {
         mocha.addFile(path.join(testDir, file));
         mocha.asyncOnly();
+        mocha.slow(1000); // setting the indication of slow tests
+        mocha.retries(3);   // settings fail retry counts for flaky tests
         mocha.timeout(10000);
     });
 
