@@ -12,14 +12,57 @@ describe('Bank >', () => {
     const bankServerUrl = `${config.environments[global.env]}`;
 
     describe('Generic validations >', () => {
+        // Strict schema validation is missing. Requests with extra payload properties should be rejected. 
+        it('should return an error on sending request with extra (not supported) properties', (done) => {
+            const payload = {
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('US'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'US', 'BJ'),
+                aba: generate.aba(),
+                test: {test: ''}
+            }
+
+            chai.request(bankServerUrl)
+                .post(endpointBankPath)
+                .send(payload)
+                .end((err, res) => {
+                    res.should.have.status(400);
+
+                    done();
+                })
+        });
+
+        it('should return an error on sending request with empty payload', (done) => {
+            chai.request(bankServerUrl)
+                .post(endpointBankPath)
+                .send({})
+                .end((err, res) => {
+                    res.should.have.status(400);
+
+                    done();
+                })
+        });
+
+        it('should return an error on sending request without payload', (done) => {
+            chai.request(bankServerUrl)
+                .post(endpointBankPath)
+                .end((err, res) => {
+                    res.should.have.status(400);
+
+                    done();
+                })
+        });
+
         it('should NOT allow to save data from unknown country', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('BY'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'BY', 'BJ'),
-                'aba': generate.aba()
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('BY'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'BY', 'BJ'),
+                aba: generate.aba()
             }
 
             chai.request(bankServerUrl)
@@ -35,11 +78,11 @@ describe('Bank >', () => {
 
         it('should NOT allow to save data without the payment_method', (done) => {
             const payload = {
-                'bank_country_code': generate.bankCountryCode('US'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'US', 'BJ'),
-                'aba': generate.aba()
+                bank_country_code: generate.bankCountryCode('US'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'US', 'BJ'),
+                aba: generate.aba()
             }
 
             chai.request(bankServerUrl)
@@ -56,11 +99,11 @@ describe('Bank >', () => {
         it('should NOT allow to save data without the account_name', (done) => {
             const country = 'US';
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode(country),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'CN', 'BJ'),
-                'aba': generate.aba()
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode(country),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'CN', 'BJ'),
+                aba: generate.aba()
             }
 
             chai.request(bankServerUrl)
@@ -77,11 +120,11 @@ describe('Bank >', () => {
         describe('SWIFT validation > ', () => {
             it('should save valid local bank details without swift code', (done) => {
                 const payload = {
-                    'payment_method': generate.paymentMethod('local'),
-                    'bank_country_code': generate.bankCountryCode('US'),
-                    'account_name': generate.accountName(10),
-                    'account_number': generate.accountNumber({country: 'US'}),
-                    'aba': generate.aba()
+                    payment_method: generate.paymentMethod('local'),
+                    bank_country_code: generate.bankCountryCode('US'),
+                    account_name: generate.accountName(10),
+                    account_number: generate.accountNumber({country: 'US'}),
+                    aba: generate.aba()
                 };
 
                 chai.request(bankServerUrl)
@@ -97,12 +140,12 @@ describe('Bank >', () => {
             it('should NOT allow to save, if the swift code (8) is not valid for the given bank country code', (done) => {
                 const country = 'US';
                 const payload = {
-                    'payment_method': generate.paymentMethod('swift'),
-                    'bank_country_code': generate.bankCountryCode(country),
-                    'account_name': generate.accountName(10),
-                    'account_number': generate.accountNumber({country: 'US'}),
-                    'swift_code': generate.swiftCode('ICBC', 'CN', 'BJ'),
-                    'aba': generate.aba()
+                    payment_method: generate.paymentMethod('swift'),
+                    bank_country_code: generate.bankCountryCode(country),
+                    account_name: generate.accountName(10),
+                    account_number: generate.accountNumber({country: 'US'}),
+                    swift_code: generate.swiftCode('ICBC', 'CN', 'BJ'),
+                    aba: generate.aba()
                 }
 
                 chai.request(bankServerUrl)
@@ -119,12 +162,12 @@ describe('Bank >', () => {
             it('should NOT allow to save, if the swift code (11) is not valid for the given bank country code', (done) => {
                 const country = 'US';
                 const payload = {
-                    'payment_method': generate.paymentMethod('swift'),
-                    'bank_country_code': generate.bankCountryCode(country),
-                    'account_name': generate.accountName(10),
-                    'account_number': generate.accountNumber({country: 'US'}),
-                    'swift_code': generate.swiftCode('ICBC', 'CN', 'BJ', 'XXX'),
-                    'aba': generate.aba()
+                    payment_method: generate.paymentMethod('swift'),
+                    bank_country_code: generate.bankCountryCode(country),
+                    account_name: generate.accountName(10),
+                    account_number: generate.accountNumber({country: 'US'}),
+                    swift_code: generate.swiftCode('ICBC', 'CN', 'BJ', 'XXX'),
+                    aba: generate.aba()
                 }
 
                 chai.request(bankServerUrl)
@@ -140,12 +183,12 @@ describe('Bank >', () => {
 
             it('should NOT post with too short swift code', (done) => {
                 const payload = {
-                    'payment_method': generate.paymentMethod('swift'),
-                    'bank_country_code': generate.bankCountryCode('US'),
-                    'account_name': generate.accountName(10),
-                    'account_number': generate.accountNumber({country: 'US'}),
-                    'swift_code': generate.swiftCode('IC', 'US', 'BJ'),
-                    'aba': generate.aba()
+                    payment_method: generate.paymentMethod('swift'),
+                    bank_country_code: generate.bankCountryCode('US'),
+                    account_name: generate.accountName(10),
+                    account_number: generate.accountNumber({country: 'US'}),
+                    swift_code: generate.swiftCode('IC', 'US', 'BJ'),
+                    aba: generate.aba()
                 }
 
                 chai.request(bankServerUrl)
@@ -161,11 +204,11 @@ describe('Bank >', () => {
 
             it('should NOT allow to save, if the swift code is not provided', (done) => {
                 const payload = {
-                    'payment_method': generate.paymentMethod('swift'),
-                    'bank_country_code': generate.bankCountryCode('US'),
-                    'account_name': generate.accountName(10),
-                    'account_number': generate.accountNumber({country: 'US'}),
-                    'aba': generate.aba()
+                    payment_method: generate.paymentMethod('swift'),
+                    bank_country_code: generate.bankCountryCode('US'),
+                    account_name: generate.accountName(10),
+                    account_number: generate.accountNumber({country: 'US'}),
+                    aba: generate.aba()
                 }
 
                 chai.request(bankServerUrl)
@@ -184,12 +227,12 @@ describe('Bank >', () => {
     describe('US specific >', () => {
         it('should save valid US swift bank details', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('US'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'US', 'BJ'),
-                'aba': generate.aba()
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('US'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'US', 'BJ'),
+                aba: generate.aba()
             }
 
             chai.request(bankServerUrl)
@@ -202,15 +245,15 @@ describe('Bank >', () => {
                 })
         });
 
-        // Test fails due to the bug. Endpoint allows to save data without providing 'aba' property.
+        // Test fails due to the bug. Endpoint allows to save data without providing aba property.
         // According to the specification abd is "mandatory when bank country is US"
         it('should NOT save US bank details without aba', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('US'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'US', 'BJ'),
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('US'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'US', 'BJ'),
             };
 
             chai.request(bankServerUrl)
@@ -225,12 +268,12 @@ describe('Bank >', () => {
 
         it('should NOT save US bank details with aba longer than 9 chars', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('US'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'US'}),
-                'swift_code': generate.swiftCode('ICBC', 'US', 'BJ'),
-                'aba': generate.aba(15)
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('US'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'US'}),
+                swift_code: generate.swiftCode('ICBC', 'US', 'BJ'),
+                aba: generate.aba(15)
             };
 
             chai.request(bankServerUrl)
@@ -248,12 +291,12 @@ describe('Bank >', () => {
     describe('AU specific >', () => {
         it('should save valid AU bank details', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('AU'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'AU'}),
-                'swift_code': generate.swiftCode('ICBC', 'AU', 'BJ', 'XXX'),
-                'bsb': generate.bsb()
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('AU'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'AU'}),
+                swift_code: generate.swiftCode('ICBC', 'AU', 'BJ', 'XXX'),
+                bsb: generate.bsb()
             }
 
             chai.request(bankServerUrl)
@@ -268,11 +311,11 @@ describe('Bank >', () => {
 
         it('should NOT save AU bank details without bsb', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('AU'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'AU'}),
-                'swift_code': generate.swiftCode('ICBC', 'AU', 'BJ', 'XXX'),
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('AU'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'AU'}),
+                swift_code: generate.swiftCode('ICBC', 'AU', 'BJ', 'XXX'),
             }
 
             chai.request(bankServerUrl)
@@ -294,11 +337,11 @@ describe('Bank >', () => {
         // According ot the specification: "for CN, account number is 8-20 character long, can be any character"
         it('should save valid CN bank details', (done) => {
             const payload = {
-                'payment_method': generate.paymentMethod('swift'),
-                'bank_country_code': generate.bankCountryCode('CN'),
-                'account_name': generate.accountName(10),
-                'account_number': generate.accountNumber({country: 'CN'}),
-                'swift_code': generate.swiftCode('ICBC', 'CN', 'BJ', 'XXX'),
+                payment_method: generate.paymentMethod('swift'),
+                bank_country_code: generate.bankCountryCode('CN'),
+                account_name: generate.accountName(10),
+                account_number: generate.accountNumber({country: 'CN'}),
+                swift_code: generate.swiftCode('ICBC', 'CN', 'BJ', 'XXX'),
             };
 
             chai.request(bankServerUrl)
