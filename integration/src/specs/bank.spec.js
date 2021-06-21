@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 
 const generate = require('../data/generator');
-const config = require('../config');
+const config = require('../config.json');
 
 chai.use(chaiHttp);
 

@@ -1,6 +1,0 @@
-module.exports = {
-    environments: {
-        demo: 'http://demo.airwallex.com:30001',
-        preview: 'http://preview.airwallex.com:30001'
-    }
-}
