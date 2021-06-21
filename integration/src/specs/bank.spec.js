@@ -245,7 +245,7 @@ describe('Bank >', () => {
                 })
         });
 
-        // Test fails due to the bug. Endpoint allows to save data without providing aba property.
+        // Test fails due to the bug. Endpoint allows to save data without providing 'aba' property.
         // According to the specification abd is "mandatory when bank country is US"
         it('should NOT save US bank details without aba', (done) => {
             const payload = {
@@ -331,7 +331,7 @@ describe('Bank >', () => {
     });
 
     describe('CN specific >', () => {
-        // Test fails due to a wrong validation of the account_number field.
+        // Test fails due to a wrong validation of the account_number property.
         // The following response message received:
         // Length of account_number should be between 7 and 11 when bank_country_code is 'US'
         // According ot the specification: "for CN, account number is 8-20 character long, can be any character"
