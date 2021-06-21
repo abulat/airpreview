@@ -5,12 +5,16 @@ const Mocha = require('mocha');
 
 // Instantiate a Mocha with options
 const mocha = new Mocha({
-    reporter: 'list'
+    reporter: 'mochawesome',
+    reporterOptions: {
+        reportFilename: 'customReportFilename',
+        quiet: false
+    },
 });
 
 // Use non-default Mocha test directory.
 const testDir = process.env.PWD + '/src/specs/';
-console.log(testDir);
+
 global.env = myArgs.env;
 
 // Add each .js file to the mocha instance
@@ -21,7 +25,7 @@ fs.readdirSync(testDir)
     .forEach(function(file) {
         mocha.addFile(path.join(testDir, file));
         mocha.asyncOnly();
-        mocha.timeout(10000)
+        mocha.timeout(10000);
     });
 
 // Run the tests.
