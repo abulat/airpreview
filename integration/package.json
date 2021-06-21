@@ -16,7 +16,9 @@
     "faker": "5.5.3"
   },
   "scripts": {
-    "test": "node src/run-test --env=preview"
+    "test": "node src/run-test",
+    "test-demo": "node src/run-test --env=demo",
+    "test-preview": "node src/run-test --env=preview"
   },
   "lint-staged": {
     "*.js": [

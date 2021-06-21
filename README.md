@@ -5,7 +5,10 @@ Tests for the `/bank` endpoint stored in `integration` folder
 ## How to run
 0. You nee to have node v12.8.0 or higher (12.8.0 was used for development)
 1. Open the terminal from the `integration` folder and run `npm i`
-2. In order to run tests, execute the following command: `npm run test` (In the current version tests will be executed against preview env.)
+2. In order to run tests, execute the following commands: 
+    * `npm run test -- --env=${specified in the config.js environamnt: demo|preview}`
+    * `npm run test-preview` - runs tests against demo environment 
+    * `npm run test-demo` - runs tests against preview environment 
 3. Test reports (html and json) will be automatically created in `integration/mochawesome-report` folder
 
 
