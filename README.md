@@ -3,7 +3,7 @@
 Tests for the `/bank` endpoint stored in `integration` folder
 
 ## How to run
-0. You nee to have node v12.8.0 or higher (12.8.0 was used for development)
+0. You need to have node v12.8.0 or higher (12.8.0 was used for development)
 1. Open the terminal from the `integration` folder and run `npm i`
 2. In order to run tests, execute the following commands: 
     * `npm run test -- --env=${specified in the config.json environment: demo|preview}`
